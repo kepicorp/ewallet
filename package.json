@@ -1,12 +1,11 @@
 {
-  "name": "ffdc-simple-oauth-b2b",
-  "version": "2.0.0",
-  "description": "Simple Back-end in nodejs for B2B OAuth using FFDC",
+  "name": "finastra-ewallet",
+  "version": "1.0.0",
+  "description": "Simple eWallet for Finastra",
   "main": "build/server.js",
   "scripts": {
     "dev": "npx nodemon --exec node -r dotenv/config ./src/server.js",
-    "prod": "node -r dotenv/config ./src/server.js",
-    "lt": "lt --port 8000"
+    "prod": "node -r dotenv/config ./src/server.js"
   },
   "repository": {
     "type": "git",
