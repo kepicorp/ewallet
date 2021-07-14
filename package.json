@@ -9,19 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fusionfabric/ffdc-simple-oauth-b2b.git"
+    "url": "git+https://github.com/kepicorp/ewallet.git"
   },
   "keywords": [
-    "ffdc",
-    "oauth2",
-    "b2b"
+    "coinbase",
+    "finastra"
   ],
   "author": "kepicorp",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fusionfabric/ffdc-simple-oauth-b2b/issues"
+    "url": "https://github.com/kepicorp/ewallet/issues"
   },
-  "homepage": "https://github.com/fusionfabric/ffdc-simple-oauth-b2b#readme",
+  "homepage": "https://github.com/kepicorp/ewallet#readme",
   "devDependencies": {
     "nodemon": "^2.0.7"
   },
@@ -29,7 +28,6 @@
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^9.0.0",
-    "express": "^4.17.1",
-    "open": "^8.0.9"
+    "express": "^4.17.1"
   }
 }

@@ -1,0 +1,11 @@
+# Local env file with secret
+.env
+.env.derek
+.env.pierre
+
+# Build and website dir
+/build
+
+# Ignore node dependencies
+/node_modules
+package-lock.json
