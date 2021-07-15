@@ -19,7 +19,7 @@ class Coinbase {
     }
 
     getHeaders(method, body, requestUrl) {
-        this.setTime
+        
         var headers= {
             'CB-ACCESS-KEY': this.key,
             'CB-ACCESS-SIGN': this.getSign(method, body, requestUrl),
@@ -44,6 +44,7 @@ class Coinbase {
     }
 
     async getUrl(url) {
+        this.setTime();
         var fullUrl = this.urlpath + url;
         console.log("Trying a get on "+fullUrl);
         const headers = {

@@ -14,40 +14,49 @@ app.use(express.static(
 );
 app.use(CORS());
 
-app.get('/accounts', async (req, res) => {
+app.get('/api/accounts', async (req, res) => {
     try {
         const result = await cb.getUrl('/accounts');
         res.status(200).json(result);
     } catch (err) {
-        res.status(500).json(err);
+        res.send(err);
     }
+})
+
+app.get('/api/currencies', async (req,res) => {
+    try {
+        const result = await cb.getUrl('/currencies');
+        res.status(200).json(result);
+    } catch (err) {
+        res.send(err);
+    }
+})
+
+app.get('/api/products', async (req,res) => {
+    try {
+        const result = await cb.getUrl('/products');
+        res.status(200).json(result);
+    } catch (err) {
+        res.send(err);
+    }
+})
+
+app.get('/api/price', async (req,res) => {
+    if (req.query.product) {
+        try {
+            const result = await cb.getUrl('/products/'+req.query.product+'/ticker');
+            res.status(200).json(result);
+        } catch (err) {
+            res.send(err);
+        }
+    } else {
+        res.status(500).send("product is missing");
+    }
+    
 })
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
-})
-
-
-app.post('/api/payment', async (req, res) => {
-    console.log("in payment");
-    var data = 
-    {
-    }
-    const url = "";
-
-    try {
-        if (!req.body.token) {
-            res.status(500).send("Missing token!");
-        }else {
-            const ffdc = new FFDC(req.body.token);
-            const result = await ffdc.callAPI(url, data);
-
-            res.status(200).send(result);
-        }
-    } catch (err) {
-        res.status(500).send(err);
-    }
-    
 })
 
 app.listen(process.env.BACK_PORT || 8000, () => {
