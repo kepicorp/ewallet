@@ -63,44 +63,27 @@ class Coinbase {
             throw(err);
         }
     }
-    
 
-    async newToken(code) {
-        //console.log('Fetching New Token');
-        var buff = Buffer.from(this.client+":"+this.secret, 'utf-8');
-        var base64 = buff.toString('base64');
+    async postUrl(url, data) {
+        this.setTime();
+        var fullUrl = this.urlpath + url;
+        console.log("Trying a get on "+fullUrl);
         const headers = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic '+base64
-            }
-        };
-        
-        const data = qs.stringify({
-            'grant_type' : 'authorization_code',
-            'code': code,
-            'redirect_uri': this.callback
-        });
+            headers: this.getHeaders('POST', '', url)
+        }
+
         try {
-            //console.log("Fetching token");
-            const res = await axios.post(this.tokenurl, data, headers);
-            if(res.status == '200'){
-                this.token = res.data.access_token;
-                this.refresh_token = res.data.refresh_token;
-                this.expires_in = res.data.expires_in;
-                this.refresh_expires_in = res.data.refresh_expires_in;
-                this.date = Date.now();
-                var returnData = { token: res.data.access_token }
-                return(returnData);
-            }else {
+            const res = await axios.post(fullUrl, data, headers);
+            if(res.status =='200') {
+                return res.data;
+            } else {
                 throw(res);
             }
         } catch (err) {
             console.error(err.message);
             throw(err);
-        };       
+        }
     }
-
 }
 
 module.exports = Coinbase;
