@@ -55,6 +55,12 @@ app.get('/api/price', async (req,res) => {
     
 })
 
+app.post('/api/trade', async (req,res) => {
+    if (req.body) {
+        // assuming I have a data that contains a trade
+    }
+})
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 })
