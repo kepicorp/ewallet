@@ -6,6 +6,7 @@ const CORS = require('cors');
 
 const app = express();
 const cb = new Coinbase();
+const ffdc = new FFDC();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,6 +15,27 @@ app.use(express.static(
     { maxAge: '1y', etag: false})
 );
 app.use(CORS());
+
+app.get('/api/token', async (req, res) => {
+    try {
+        var token = await ffdc.getToken();
+        if (token.token) {
+            res.status(200).json(token);
+        } else {
+            res.status(500).send(token);
+        }
+    } catch (err) {
+        res.send(err);
+    }
+})
+
+app.get('/api/essence', async (req, res) => {
+    if (req.query.token) {
+        res.send("success");
+    }else {
+        res.send(500).send("Token is missing");
+    }
+})
 
 app.get('/api/accounts', async (req, res) => {
     try {
@@ -57,10 +79,17 @@ app.get('/api/price', async (req,res) => {
 })
 
 app.post('/api/trade', async (req,res) => {
-    if (req.body && req.body.size && req.body.price && req.body.side && req.body.product_id) {
+    if (req.body && req.body.size && req.body.side && req.body.product_id) {
         // assuming I have a data that contains a trade
         // Trade should have a size, price, side, product_id
-        console.log(req.body);
+        try {
+            const result = await cb.postUrl('/orders', req.body);
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).send(err.response.data.message);
+        }
+    }else {
+        res.status(500).send("Trading data is missing");
     }
 })
 

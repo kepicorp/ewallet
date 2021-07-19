@@ -5,14 +5,14 @@ const qs = require('qs');
 
 class Authenticator {
     constructor(client, secret, token) {
-        this.client = process.env.CLIENT_ID_B2B || client;
-        this.secret = process.env.CLIENT_SECRET_B2B || secret;
+        this.client = process.env.CLIENT_ID || client;
+        this.secret = process.env.CLIENT_SECRET || secret;
         this.tokenurl = process.env.TOKEN_URL || token;
         this.date = Date.now();
         this.expires_in = -1;
         this.refresh_expires_in = -1;
         this.token = "empty";
-        //console.log("Initiate autentication with client_id: "+this.client+"\nToken URL: "+this.tokenurl);
+        console.log("Initiate autentication with client_id: "+this.client+"\nToken URL: "+this.tokenurl);
     }
 
     async newToken() {

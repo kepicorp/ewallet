@@ -57,9 +57,13 @@ Set ```.env``` file
 
 ```bash
 # Coinbase related details
-KEY=<Key from coinbase>
-PASS=<Passphrase from coinbase>
-
+KEY=API_KEY_COINBASE
+SECRET=API_SECRET_COINBASE
+PASS=API_PASSPHRASE_COINBASE
+PATH=API_PATH_COINBASE
+CLIENT_ID=FFDC_CLIENT_ID
+CLIENT_SECRET=FFDC_CLIENT_SECRET
+TOKEN_URL=FFDC_TOKEN_URL
 # Server configuration
 BACK_PORT=A_NUMBER
 ```

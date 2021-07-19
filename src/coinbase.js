@@ -12,6 +12,7 @@ class Coinbase {
         this.pass = process.env.PASS || pass;
         this.urlpath = process.env.API || path;
         this.setTime();
+        console.log("Initiate coinbase connectivity with key: "+this.key+"\nAPI Url: "+this.urlpath);
     }
 
     setTime() {
@@ -31,7 +32,7 @@ class Coinbase {
 
     getSign(method, body, requestUrl) {
         // create the prehash string by concatenating required parts
-        var what = this.timestamp + method + requestUrl + body;
+        var what = this.timestamp + method + requestUrl + JSON.stringify(body);
         // decode the base64 secret
         var key = Buffer.from(this.secret, 'base64');
 
@@ -67,11 +68,10 @@ class Coinbase {
     async postUrl(url, data) {
         this.setTime();
         var fullUrl = this.urlpath + url;
-        console.log("Trying a get on "+fullUrl);
+        console.log("Trying a post on "+fullUrl);
         const headers = {
-            headers: this.getHeaders('POST', '', url)
+            headers: this.getHeaders('POST', data, url)
         }
-
         try {
             const res = await axios.post(fullUrl, data, headers);
             if(res.status =='200') {
@@ -80,7 +80,6 @@ class Coinbase {
                 throw(res);
             }
         } catch (err) {
-            console.error(err.message);
             throw(err);
         }
     }
