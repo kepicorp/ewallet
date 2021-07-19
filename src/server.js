@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const Coinbase = require('./coinbase.js');
+const FFDC = require('./authenticator.js');
 const CORS = require('cors');
 
 const app = express();
