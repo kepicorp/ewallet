@@ -56,8 +56,10 @@ app.get('/api/price', async (req,res) => {
 })
 
 app.post('/api/trade', async (req,res) => {
-    if (req.body) {
+    if (req.body && req.body.size && req.body.price && req.body.side && req.body.product_id) {
         // assuming I have a data that contains a trade
+        // Trade should have a size, price, side, product_id
+        console.log(req.body);
     }
 })
 
