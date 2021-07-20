@@ -42,7 +42,6 @@ app.get('/api/accounts', async (req, res) => {
         const result = await cb.getUrl('/accounts');
         res.status(200).json(result);
     } catch (err) {
-        console.log("caught error: "+err.response.data.message);
         res.status(500).send(err.response.data.message);
     }
 })

@@ -32,7 +32,11 @@ class Coinbase {
 
     getSign(method, body, requestUrl) {
         // create the prehash string by concatenating required parts
-        var what = this.timestamp + method + requestUrl + JSON.stringify(body);
+        var curBody = ''
+        if (method == "POST") {
+            curBody = JSON.stringify(body);
+        }
+        var what = this.timestamp + method + requestUrl + curBody;
         // decode the base64 secret
         var key = Buffer.from(this.secret, 'base64');
 
@@ -49,7 +53,7 @@ class Coinbase {
         var fullUrl = this.urlpath + url;
         console.log("Trying a get on "+fullUrl);
         const headers = {
-            headers: this.getHeaders('GET', '', url)
+            headers: this.getHeaders('GET', null, url)
         }
 
         try {
@@ -60,7 +64,6 @@ class Coinbase {
                 throw(res);
             }
         } catch (err) {
-            console.log("error: "+err.response.data.message);
             throw(err);
         }
     }
