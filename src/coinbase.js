@@ -60,7 +60,7 @@ class Coinbase {
                 throw(res);
             }
         } catch (err) {
-            console.error(err.message);
+            console.log("error: "+err.response.data.message);
             throw(err);
         }
     }
