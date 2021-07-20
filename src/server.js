@@ -31,7 +31,19 @@ app.get('/api/token', async (req, res) => {
 
 app.get('/api/essence', async (req, res) => {
     if (req.query.token) {
-        res.send("success");
+        var data = 
+        [{
+            id: "1",
+            currency: "Essence USD",
+            balance: "2000"
+        },
+        {
+            id: "2",
+            currency: "Essence BTC",
+            balance: "10"
+        }
+        ]
+        res.json(data);
     }else {
         res.send(500).send("Token is missing");
     }
