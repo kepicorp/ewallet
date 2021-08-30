@@ -5,7 +5,14 @@
 
 # Build and website dir
 /build
+/dist/css
+/dist/img
+/dist/js
+/dist/favicon.ico
 
 # Ignore node dependencies
 /node_modules
 package-lock.json
+
+# Mac OS thingies
+.DS_Store
