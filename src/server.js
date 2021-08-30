@@ -40,7 +40,7 @@ app.get('/api/essence', async (req, res) => {
         {
             id: "2",
             currency: "BTC",
-            balance: "2.345654"
+            balance: "0.12381028"
         }
         ]
         res.json(data);
