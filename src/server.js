@@ -34,13 +34,13 @@ app.get('/api/essence', async (req, res) => {
         var data = 
         [{
             id: "1",
-            currency: "Essence USD",
-            balance: "2000"
+            currency: "USD",
+            balance: "20289.87"
         },
         {
             id: "2",
-            currency: "Essence BTC",
-            balance: "10"
+            currency: "BTC",
+            balance: "2.345654"
         }
         ]
         res.json(data);
