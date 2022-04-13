@@ -35,12 +35,12 @@ app.get('/api/essence', async (req, res) => {
         [{
             id: "01210PTY00100",
             currency: "EUR",
-            balance: "4,570.25"
+            balance: "5720.25"
         },
         {
             id: "03111PTY00100",
             currency: "GBP",
-            balance: "22,859.15"
+            balance: "22859.15"
         }
         ]
         res.json(data);
@@ -76,6 +76,15 @@ app.get('/api/products', async (req,res) => {
     }
 })
 
+app.get('/api/orders', async (req,res) => {
+    try {
+        const result = await cb.getUrl('/orders');
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).send(err.response.data.message);
+    }
+})
+
 app.get('/api/price', async (req,res) => {
     if (req.query.product) {
         try {
@@ -91,16 +100,20 @@ app.get('/api/price', async (req,res) => {
 })
 
 app.post('/api/trade', async (req,res) => {
+    console.log(req.body);
     if (req.body && req.body.size && req.body.side && req.body.product_id) {
         // assuming I have a data that contains a trade
         // Trade should have a size, price, side, product_id
         try {
             const result = await cb.postUrl('/orders', req.body);
+            //console.log(result);
             res.status(200).json(result);
         } catch (err) {
+            console.log("error 500 " + err.response);
             res.status(500).send(err.response.data.message);
         }
     }else {
+        console.log("error !");
         res.status(500).send("Trading data is missing");
     }
 })

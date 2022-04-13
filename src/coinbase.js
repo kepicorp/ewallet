@@ -78,6 +78,7 @@ class Coinbase {
         try {
             const res = await axios.post(fullUrl, data, headers);
             if(res.status =='200') {
+                console.log(res);
                 return res.data;
             } else {
                 throw(res);
