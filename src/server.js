@@ -1,12 +1,14 @@
 const path = require('path');
 const express = require('express');
 const Coinbase = require('./coinbase.js');
-const FFDC = require('./authenticator.js');
+const Authenticator = require('./authenticator.js');
 const CORS = require('cors');
+const Essence = require('./essence.js');
 
 const app = express();
 const cb = new Coinbase();
-const ffdc = new FFDC();
+const auth = new Authenticator();
+const es = new Essence();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,7 +20,8 @@ app.use(CORS());
 
 app.get('/api/token', async (req, res) => {
     try {
-        var token = await ffdc.getToken();
+        var token = await auth.getToken();
+        console.log(token);
         if (token.token) {
             res.status(200).json(token);
         } else {
@@ -27,6 +30,22 @@ app.get('/api/token', async (req, res) => {
     } catch (err) {
         res.send(err);
     }
+})
+
+app.get('/api/accountDetails', async (req, res) => {
+    try {
+        var token = await auth.getToken();
+        if (token.token) {
+            var dest = es.getAccountDetails(token.token, "10000006");
+            res.status(200).send(dest.data);
+        } else {
+            res.status(500).send("Missing Token");
+        }
+    } catch (err) {
+        console.error("Failing out there");
+        res.status(500).send(err.message);
+    }
+
 })
 
 app.get('/api/essence', async (req, res) => {
